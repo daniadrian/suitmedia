@@ -1,0 +1,22 @@
+   image: node:latest
+
+   stages:
+     - build
+     - deploy
+
+   build:
+     stage: build
+     script:
+       - npm install
+       - npm run build
+     artifacts:
+       paths:
+         - dist/
+
+   deploy:
+     stage: deploy
+     script:
+       - apt-get update -qq && apt-get install -y -qq sshpass
+       - sshpass -p $SSH_PASSWORD scp -o StrictHostKeyChecking=no -r dist/* $SSH_USER@$SSH_HOST:/var/www/html/suitmedia.site
+     only:
+       - main
