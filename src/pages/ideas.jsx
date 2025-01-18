@@ -110,23 +110,63 @@ export const Ideas = () => {
 
       {/* Pagination */}
       <div className="flex justify-center items-center mt-6 gap-2">
-        {Array.from(
-          { length: Math.ceil(sortedData.length / perPage) },
-          (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => handlePageChange(index + 1)}
-              className={`px-4 py-2 rounded ${
-                page === index + 1
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              {index + 1}
-            </button>
-          )
-        )}
-      </div>
+  <button
+    onClick={() => handlePageChange(1)}
+    disabled={page === 1}
+    className={`px-2 py-1 border rounded ${
+      page === 1 ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-white text-gray-700"
+    }`}
+  >
+    «
+  </button>
+  <button
+    onClick={() => handlePageChange(page - 1)}
+    disabled={page === 1}
+    className={`px-2 py-1 border rounded ${
+      page === 1 ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-white text-gray-700"
+    }`}
+  >
+    ‹
+  </button>
+  {Array.from(
+    { length: Math.ceil(sortedData.length / perPage) },
+    (_, index) => (
+      <button
+        key={index + 1}
+        onClick={() => handlePageChange(index + 1)}
+        className={`px-3 py-1 border rounded ${
+          page === index + 1
+            ? "bg-orange-500 text-white"
+            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+        }`}
+      >
+        {index + 1}
+      </button>
+    )
+  )}
+  <button
+    onClick={() => handlePageChange(page + 1)}
+    disabled={page === Math.ceil(sortedData.length / perPage)}
+    className={`px-2 py-1 border rounded ${
+      page === Math.ceil(sortedData.length / perPage)
+        ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+        : "bg-white text-gray-700"
+    }`}
+  >
+    ›
+  </button>
+  <button
+    onClick={() => handlePageChange(Math.ceil(sortedData.length / perPage))}
+    disabled={page === Math.ceil(sortedData.length / perPage)}
+    className={`px-2 py-1 border rounded ${
+      page === Math.ceil(sortedData.length / perPage)
+        ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+        : "bg-white text-gray-700"
+    }`}
+  >
+    »
+  </button>
+</div>
     </div>
   );
 };
